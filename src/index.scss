@@ -2,3 +2,49 @@
   $font-path: '@ibm/plex'
 );
 @use '@carbon/react';
+
+/* ---- Page layout helpers ---- */
+
+.home-hero {
+  padding-block: var(--cds-spacing-10, 4rem) var(--cds-spacing-09, 3rem);
+
+  .home-hero__sub {
+    margin-block: var(--cds-spacing-06, 1.5rem);
+    max-width: 48rem;
+  }
+
+  .home-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cds-spacing-04, 1rem);
+  }
+}
+
+.home-section-heading,
+.about-section-heading {
+  margin-block: var(--cds-spacing-07, 2rem) var(--cds-spacing-05, 1rem);
+}
+
+.home-feature-tile {
+  block-size: 100%;
+
+  .home-feature-tile__body {
+    margin-block-start: var(--cds-spacing-04, 1rem);
+  }
+}
+
+.about-intro {
+  margin-block-start: var(--cds-spacing-05, 1rem);
+  max-width: 48rem;
+}
+
+.contact-intro {
+  margin-block-start: var(--cds-spacing-05, 1rem);
+  margin-block-end: var(--cds-spacing-07, 2rem);
+  max-width: 36rem;
+}
+
+.contact-notification {
+  margin-block-end: var(--cds-spacing-06, 1.5rem);
+  max-inline-size: none;
+}

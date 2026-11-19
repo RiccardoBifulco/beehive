@@ -14,8 +14,8 @@ function renderAt(path: string) {
 
 describe('App', () => {
   it.each([
-    ['/', 'Beehive'],
-    ['/about', 'About'],
+    ['/', 'Welcome to Beehive'],
+    ['/about', 'About Beehive'],
     ['/contact', 'Contact'],
   ])('renders the page for %s', (path, heading) => {
     renderAt(path)
@@ -37,7 +37,9 @@ describe('App', () => {
     renderAt('/')
     const nav = screen.getByRole('navigation', { name: 'Main' })
     await userEvent.click(nav.querySelector('a[href="/about"]')!)
-    expect(screen.getByRole('heading', { name: 'About' })).toBeInTheDocument()
+    expect(
+      screen.getByRole('heading', { name: 'About Beehive' }),
+    ).toBeInTheDocument()
   })
 
   it('toggles the side navigation from the menu button', async () => {

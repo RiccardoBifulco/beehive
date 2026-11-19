@@ -14,3 +14,13 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: () => false,
   }),
 })
+
+// jsdom does not implement ResizeObserver, which Carbon's TextArea relies on.
+class ResizeObserverStub {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+;(window as unknown as Record<string, unknown>).ResizeObserver =
+  ResizeObserverStub

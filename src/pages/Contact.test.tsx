@@ -1,0 +1,71 @@
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { describe, expect, it } from 'vitest'
+import Contact from './Contact'
+
+describe('Contact', () => {
+  it('renders the main heading', () => {
+    render(<Contact />)
+    expect(screen.getByRole('heading', { name: 'Contact' })).toBeInTheDocument()
+  })
+
+  it('renders name, email, reason and message fields', () => {
+    render(<Contact />)
+    expect(screen.getByLabelText(/full name/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/email address/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/reason for enquiry/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/message/i)).toBeInTheDocument()
+  })
+
+  it('renders a Send message submit button', () => {
+    render(<Contact />)
+    expect(
+      screen.getByRole('button', { name: /send message/i }),
+    ).toBeInTheDocument()
+  })
+
+  it('shows validation errors when submitted empty', async () => {
+    render(<Contact />)
+    await userEvent.click(screen.getByRole('button', { name: /send message/i }))
+    expect(screen.getByText('Name is required.')).toBeInTheDocument()
+    expect(screen.getByText('Email address is required.')).toBeInTheDocument()
+    expect(screen.getByText('Message is required.')).toBeInTheDocument()
+  })
+
+  it('shows an email format error for an invalid email', async () => {
+    render(<Contact />)
+    await userEvent.type(screen.getByLabelText(/full name/i), 'Jane')
+    await userEvent.type(
+      screen.getByLabelText(/email address/i),
+      'not-an-email',
+    )
+    await userEvent.type(screen.getByLabelText(/message/i), 'Hello')
+    await userEvent.click(screen.getByRole('button', { name: /send message/i }))
+    expect(screen.getByText('Enter a valid email address.')).toBeInTheDocument()
+  })
+
+  it('shows success notification on valid submission', async () => {
+    render(<Contact />)
+    await userEvent.type(screen.getByLabelText(/full name/i), 'Jane Smith')
+    await userEvent.type(
+      screen.getByLabelText(/email address/i),
+      'jane@example.com',
+    )
+    await userEvent.type(screen.getByLabelText(/message/i), 'Hello there')
+    await userEvent.click(screen.getByRole('button', { name: /send message/i }))
+    expect(screen.getByText(/message sent/i)).toBeInTheDocument()
+  })
+
+  it('clears the form after successful submission', async () => {
+    render(<Contact />)
+    const nameInput = screen.getByLabelText(/full name/i)
+    await userEvent.type(nameInput, 'Jane Smith')
+    await userEvent.type(
+      screen.getByLabelText(/email address/i),
+      'jane@example.com',
+    )
+    await userEvent.type(screen.getByLabelText(/message/i), 'Hello there')
+    await userEvent.click(screen.getByRole('button', { name: /send message/i }))
+    expect((nameInput as HTMLInputElement).value).toBe('')
+  })
+})
