@@ -30,3 +30,9 @@ Run `npm run lint`, `npm run format:check`, `npm test` and `npm run build`; all 
 | `npm run format:check`  | Check formatting                        |
 | `npm test`              | Run unit tests (Vitest)                 |
 | `npm run test:coverage` | Run tests with coverage (80% threshold) |
+
+## Building and serving
+
+`npm run build` writes the site to `dist/`, and `npm run preview` serves that folder locally.
+
+Routing happens in the browser (`BrowserRouter`), so `/about` and `/contact` are not files in `dist/`. Whatever hosts the build must answer unknown paths with `index.html`; otherwise a refresh or direct link to those pages returns 404.
