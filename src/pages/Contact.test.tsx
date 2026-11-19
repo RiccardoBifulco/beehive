@@ -68,4 +68,13 @@ describe('Contact', () => {
     await userEvent.click(screen.getByRole('button', { name: /send message/i }))
     expect((nameInput as HTMLInputElement).value).toBe('')
   })
+
+  it('clears a field error once the user edits that field', async () => {
+    render(<Contact />)
+    await userEvent.click(screen.getByRole('button', { name: /send message/i }))
+    expect(screen.getByText('Name is required.')).toBeInTheDocument()
+    await userEvent.type(screen.getByLabelText(/full name/i), 'J')
+    expect(screen.queryByText('Name is required.')).not.toBeInTheDocument()
+    expect(screen.getByText('Message is required.')).toBeInTheDocument()
+  })
 })
