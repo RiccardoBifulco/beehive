@@ -17,6 +17,7 @@ describe('App', () => {
     ['/', 'Welcome to Beehive'],
     ['/about', 'About Beehive'],
     ['/contact', 'Contact'],
+    ['/no-such-page', 'Page not found'],
   ])('renders the page for %s', (path, heading) => {
     renderAt(path)
     expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument()
