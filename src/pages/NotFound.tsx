@@ -1,0 +1,18 @@
+import { Button, Column, Grid } from '@carbon/react'
+
+function NotFound() {
+  return (
+    <Grid>
+      <Column sm={4} md={8} lg={16}>
+        <h1 className="cds--productive-heading-05">Page not found</h1>
+        <p className="cds--body-long-02 not-found-intro">
+          The page you requested does not exist. It may have been moved or
+          mistyped.
+        </p>
+        <Button href="/">Back to home</Button>
+      </Column>
+    </Grid>
+  )
+}
+
+export default NotFound
