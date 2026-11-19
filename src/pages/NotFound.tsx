@@ -5,7 +5,7 @@ function NotFound() {
     <Grid>
       <Column sm={4} md={8} lg={16}>
         <h1 className="cds--productive-heading-05">Page not found</h1>
-        <p className="cds--body-long-02 not-found-intro">
+        <p className="cds--body-long-02">
           The page you requested does not exist. It may have been moved or
           mistyped.
         </p>
