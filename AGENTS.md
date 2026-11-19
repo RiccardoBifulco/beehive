@@ -10,27 +10,30 @@ Static website built with React 19, Vite, TypeScript and the IBM Carbon Design
 System (`@carbon/react`), with `react-router-dom` for client-side routing and
 Sass for styles.
 
-| Path                | Purpose                                       |
-| ------------------- | --------------------------------------------- |
-| `src/main.tsx`      | Entry point; mounts `App` inside the router   |
-| `src/App.tsx`       | Root component                                |
-| `src/index.scss`    | Global styles                                 |
-| `src/test/setup.ts` | Vitest setup (`@testing-library/jest-dom`)    |
-| `vite.config.ts`    | Vite and Vitest configuration (jsdom)         |
-| `eslint.config.js`  | ESLint flat config (typescript-eslint, hooks) |
+| Path                | Purpose                                        |
+| ------------------- | ---------------------------------------------- |
+| `src/main.tsx`      | Entry point; mounts `App` inside the router    |
+| `src/App.tsx`       | Root component; route definitions              |
+| `src/components/`   | Shared components (`Layout` UI Shell)          |
+| `src/pages/`        | One component per route (Home, About, Contact) |
+| `src/index.scss`    | Global styles                                  |
+| `src/test/setup.ts` | Vitest setup (`@testing-library/jest-dom`)     |
+| `vite.config.ts`    | Vite and Vitest configuration (jsdom)          |
+| `eslint.config.js`  | ESLint flat config (typescript-eslint, hooks)  |
 
 ## Commands
 
 Run `npm ci` once, then use the scripts below. These are the same checks a
 reviewer will run, so run them before opening a PR.
 
-| Command                | Use                             |
-| ---------------------- | ------------------------------- |
-| `npm run dev`          | Start the dev server            |
-| `npm run build`        | Type-check (`tsc -b`) and build |
-| `npm run lint`         | ESLint                          |
-| `npm run format:check` | Prettier check                  |
-| `npm test`             | Unit tests (Vitest, single run) |
+| Command                 | Use                                  |
+| ----------------------- | ------------------------------------ |
+| `npm run dev`           | Start the dev server                 |
+| `npm run build`         | Type-check (`tsc -b`) and build      |
+| `npm run lint`          | ESLint                               |
+| `npm run format:check`  | Prettier check                       |
+| `npm test`              | Unit tests (Vitest, single run)      |
+| `npm run test:coverage` | Tests with coverage; fails under 80% |
 
 A change is ready only when `npm run lint`, `npm run format:check`,
 `npm test` and `npm run build` all pass.
