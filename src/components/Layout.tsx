@@ -10,7 +10,8 @@ import {
   SkipToContent,
 } from '@carbon/react'
 import { useState } from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import ErrorBoundary from './ErrorBoundary'
 
 const NAV_ITEMS = [
   { to: '/', label: 'Home' },
@@ -21,6 +22,7 @@ const NAV_ITEMS = [
 ] as const
 
 function Layout() {
+  const { pathname } = useLocation()
   const [isSideNavExpanded, setSideNavExpanded] = useState(false)
   const closeSideNav = () => setSideNavExpanded(false)
 
@@ -74,7 +76,9 @@ function Layout() {
         </SideNav>
       </Header>
       <Content id="main-content">
-        <Outlet />
+        <ErrorBoundary key={pathname}>
+          <Outlet />
+        </ErrorBoundary>
       </Content>
     </>
   )
