@@ -48,3 +48,172 @@
   margin-block-end: var(--cds-spacing-06, 1.5rem);
   max-inline-size: none;
 }
+
+/* ---- Agentic Field Lab studios ---- */
+
+.studio {
+  padding-block: var(--cds-spacing-07, 2rem);
+  display: grid;
+  gap: var(--cds-spacing-05, 1rem);
+
+  &__header {
+    display: grid;
+    gap: var(--cds-spacing-03, 0.5rem);
+    max-width: 48rem;
+    padding: var(--cds-spacing-06, 1.5rem);
+    border-radius: 1rem;
+  }
+
+  &--cuga &__header {
+    background: linear-gradient(135deg, #edf5ff, #ffffff);
+  }
+
+  &--hive &__header {
+    background: linear-gradient(135deg, #f6f2ff, #ffffff);
+  }
+
+  &__mode {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--cds-spacing-04, 1rem);
+  }
+
+  &__grid {
+    display: grid;
+    gap: var(--cds-spacing-05, 1rem);
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  }
+
+  &__panel {
+    border-radius: 1rem;
+    display: grid;
+    gap: var(--cds-spacing-04, 1rem);
+    align-content: start;
+  }
+
+  &__panel-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__controls,
+  &__examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cds-spacing-03, 0.5rem);
+  }
+
+  &__form {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--cds-spacing-03, 0.5rem);
+
+    > :first-child {
+      flex: 1;
+    }
+  }
+
+  &__log {
+    display: grid;
+    gap: var(--cds-spacing-03, 0.5rem);
+    max-block-size: 20rem;
+    overflow-y: auto;
+  }
+
+  &__msg {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--cds-spacing-03, 0.5rem);
+
+    &--you {
+      font-style: italic;
+    }
+  }
+
+  &__empty,
+  &__note {
+    color: var(--cds-text-secondary, #525252);
+  }
+
+  &__timeline {
+    display: grid;
+    gap: var(--cds-spacing-03, 0.5rem);
+    padding-inline-start: var(--cds-spacing-06, 1.5rem);
+
+    li {
+      display: grid;
+      gap: var(--cds-spacing-02, 0.25rem);
+    }
+  }
+
+  &__section {
+    display: grid;
+    gap: var(--cds-spacing-04, 1rem);
+  }
+
+  &__lanes {
+    display: grid;
+    gap: var(--cds-spacing-04, 1rem);
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  }
+}
+
+.cuga-page {
+  display: grid;
+  gap: var(--cds-spacing-04, 1rem);
+  padding: var(--cds-spacing-05, 1rem);
+  border: 1px solid var(--cds-border-subtle, #e0e0e0);
+  border-radius: 0.75rem;
+  background: #fff;
+  color: #161616;
+
+  &--calm {
+    background: #edf5ff;
+    border-color: #a6c8ff;
+  }
+
+  &__heading {
+    margin: 0;
+  }
+
+  &__mark {
+    padding: var(--cds-spacing-03, 0.5rem);
+    border-radius: 0.5rem;
+
+    &--on {
+      outline: 3px solid #8a3ffc;
+      background: #f6f2ff;
+    }
+  }
+
+  &__added {
+    font-style: italic;
+  }
+
+  &__button {
+    justify-self: start;
+    padding: 0.5rem 1rem;
+    border: 0;
+    border-radius: 0.5rem;
+    background: #0f62fe;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid #0f62fe;
+      outline-offset: 2px;
+    }
+
+    &--prominent {
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgb(15 98 254 / 40%);
+    }
+  }
+}
