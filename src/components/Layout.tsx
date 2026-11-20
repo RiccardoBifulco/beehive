@@ -15,6 +15,8 @@ import { Link, NavLink, Outlet } from 'react-router-dom'
 const NAV_ITEMS = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
+  { to: '/cuga', label: 'CUGA Page Studio' },
+  { to: '/hive', label: 'Hive Agent Fleet' },
   { to: '/contact', label: 'Contact' },
 ] as const
 
