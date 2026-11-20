@@ -126,6 +126,29 @@ describe('server', () => {
     expect(JSON.parse(init.body).query).toContain('Kept 30 days')
   })
 
+  it('finds Answer and Error past the event display cap', async () => {
+    const filler = Array.from(
+      { length: 60 },
+      (_, i) => `event: Step\ndata: s${i}\n\n`,
+    ).join('')
+    const run = (tail) => {
+      const handler = createHandler({
+        env: { CUGA_BASE_URL: 'http://cuga' },
+        fetchImpl: async () => new Response(filler + tail),
+      })
+      return call(handler, {
+        method: 'POST',
+        url: '/api/cuga/chat',
+        body: JSON.stringify({ message: 'Q', pageContext: 'ctx' }),
+      })
+    }
+    const ok = await run('event: Answer\ndata: late answer\n\n')
+    expect(ok.body.answer).toBe('late answer')
+    expect(ok.body.events).toHaveLength(40)
+    const failed = await run('event: Error\ndata: boom\n\n')
+    expect(failed.body).toEqual({ error: 'cuga_run_failed' })
+  })
+
   it('maps CUGA failures to safe error codes', async () => {
     const make = (fetchImpl) =>
       createHandler({ env: { CUGA_BASE_URL: 'http://cuga' }, fetchImpl })
@@ -224,6 +247,17 @@ describe('server', () => {
       headers: { 'x-access-token': 's3' },
     })
     expect(ok.status).toBe(200)
+  })
+
+  it('rate limits wrong access tokens', async () => {
+    const handler = createHandler({
+      env: { BFF_ACCESS_TOKEN: 's3', RATE_LIMIT_PER_MINUTE: '2' },
+    })
+    const bad = () =>
+      call(handler, { url: '/api/status', headers: { 'x-access-token': 'no' } })
+    expect((await bad()).status).toBe(401)
+    expect((await bad()).status).toBe(401)
+    expect((await bad()).status).toBe(429)
   })
 
   it('rate limits per client and recovers after a minute', async () => {

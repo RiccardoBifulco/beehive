@@ -4,6 +4,7 @@
 // integrations are separate handlers and share nothing but the rate limiter.
 // Upstream targets come only from environment variables, never from a request.
 
+import crypto from 'node:crypto'
 import http from 'node:http'
 
 const MAX_BODY_BYTES = 16 * 1024
@@ -37,8 +38,16 @@ export function readConfig(env) {
 
 function createRateLimiter(limit, now) {
   const hits = new Map()
+  let lastSweep = now()
   return (key) => {
     const cutoff = now() - 60_000
+    // Drop keys with no recent hits so memory stays bounded by active clients.
+    if (lastSweep <= cutoff) {
+      for (const [k, times] of hits) {
+        if (times.every((t) => t <= cutoff)) hits.delete(k)
+      }
+      lastSweep = now()
+    }
     const recent = (hits.get(key) ?? []).filter((t) => t > cutoff)
     if (recent.length >= limit) {
       hits.set(key, recent)
@@ -48,6 +57,11 @@ function createRateLimiter(limit, now) {
     hits.set(key, recent)
     return true
   }
+}
+
+function safeEqual(a, b) {
+  const hash = (v) => crypto.createHash('sha256').update(String(v)).digest()
+  return crypto.timingSafeEqual(hash(a), hash(b))
 }
 
 function clientKey(req, trustProxy) {
@@ -152,13 +166,16 @@ async function handleCugaChat(config, fetchImpl, req) {
   }
   if (!res.ok) throw new HttpError(502, 'cuga_error')
 
-  const events = parseSse(await res.text())
-    .slice(0, MAX_EVENTS)
-    .map((e) => ({ name: e.name, data: e.data.slice(0, MAX_EVENT_CHARS) }))
-  if (events.some((e) => e.name === 'Error')) {
+  // Look for Error and Answer on the full stream: CUGA emits both at the end,
+  // so truncating first would drop them on long runs.
+  const parsed = parseSse(await res.text())
+  if (parsed.some((e) => e.name === 'Error')) {
     throw new HttpError(502, 'cuga_run_failed')
   }
-  const answer = events.findLast((e) => e.name === 'Answer')?.data ?? ''
+  const answer = parsed.findLast((e) => e.name === 'Answer')?.data ?? ''
+  const events = parsed
+    .slice(0, MAX_EVENTS)
+    .map((e) => ({ name: e.name, data: e.data.slice(0, MAX_EVENT_CHARS) }))
   return { answer, events }
 }
 
@@ -212,14 +229,14 @@ export function createHandler({
     }
     try {
       const { pathname } = new URL(req.url ?? '/', 'http://localhost')
-      if (
-        config.accessToken &&
-        req.headers['x-access-token'] !== config.accessToken
-      ) {
-        throw new HttpError(401, 'unauthorized')
-      }
       if (!allow(clientKey(req, config.trustProxy))) {
         throw new HttpError(429, 'rate_limited')
+      }
+      if (
+        config.accessToken &&
+        !safeEqual(req.headers['x-access-token'] ?? '', config.accessToken)
+      ) {
+        throw new HttpError(401, 'unauthorized')
       }
       if (req.method === 'GET' && pathname === '/api/status') {
         return send(200, await handleStatus(config, fetchImpl))
