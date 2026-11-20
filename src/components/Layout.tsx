@@ -11,6 +11,7 @@ import {
 } from '@carbon/react'
 import { useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
+import ErrorBoundary from './ErrorBoundary'
 
 const NAV_ITEMS = [
   { to: '/', label: 'Home' },
@@ -72,7 +73,9 @@ function Layout() {
         </SideNav>
       </Header>
       <Content id="main-content">
-        <Outlet />
+        <ErrorBoundary>
+          <Outlet />
+        </ErrorBoundary>
       </Content>
     </>
   )
