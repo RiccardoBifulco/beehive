@@ -43,6 +43,23 @@ describe('App', () => {
     ).toBeInTheDocument()
   })
 
+  it.each([
+    ['Meet the agents', 'About Beehive'],
+    ['Get in touch', 'Contact'],
+  ])('navigates client-side from the %s CTA', async (name, heading) => {
+    renderAt('/')
+    await userEvent.click(screen.getByRole('link', { name }))
+    expect(screen.getByRole('heading', { name: heading })).toBeInTheDocument()
+  })
+
+  it('navigates client-side from the 404 back to home CTA', async () => {
+    renderAt('/no-such-page')
+    await userEvent.click(screen.getByRole('link', { name: /back to home/i }))
+    expect(
+      screen.getByRole('heading', { name: 'Welcome to Beehive' }),
+    ).toBeInTheDocument()
+  })
+
   it('toggles the side navigation from the menu button', async () => {
     renderAt('/')
     await userEvent.click(screen.getByRole('button', { name: 'Open menu' }))
