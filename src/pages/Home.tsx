@@ -1,44 +1,6 @@
 import { Button, Column, Grid, Tag, Tile } from '@carbon/react'
 import { ArrowRight } from '@carbon/icons-react'
-
-const FEATURES = [
-  {
-    id: 'scanner',
-    label: 'Scanner',
-    description:
-      'First-responder agent that triages issues, applies quick fixes, and escalates complex work to specialist agents.',
-  },
-  {
-    id: 'architect',
-    label: 'Architect',
-    description:
-      'Handles large refactors, designs system-level changes, and authors RFCs for multi-step work.',
-  },
-  {
-    id: 'ci-maintainer',
-    label: 'CI Maintainer',
-    description:
-      'Monitors pipelines, updates workflow files, and keeps test suites green across all branches.',
-  },
-  {
-    id: 'supervisor',
-    label: 'Supervisor',
-    description:
-      'Observes agent activity, tracks hive-wide status, and reports progress to maintainers.',
-  },
-  {
-    id: 'outreach',
-    label: 'Outreach',
-    description:
-      'Handles community engagement, writes external-facing documentation, and manages release notes.',
-  },
-  {
-    id: 'sec-check',
-    label: 'Sec-Check',
-    description:
-      'Runs vulnerability scans, audits dependencies, and flags security issues before they reach production.',
-  },
-]
+import { AGENTS } from '../data/agents'
 
 function Home() {
   return (
@@ -71,7 +33,7 @@ function Home() {
         </h2>
       </Column>
 
-      {FEATURES.map(({ id, label, description }) => (
+      {AGENTS.map(({ id, label, description }) => (
         <Column key={id} sm={4} md={4} lg={8} xlg={4}>
           <Tile className="home-feature-tile">
             <Tag type="blue" size="sm">
