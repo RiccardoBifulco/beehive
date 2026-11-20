@@ -6,19 +6,18 @@ direction below; the repository does not yet state what the site is for.
 ## Now: foundations (landed)
 
 - Vite + React 19 + TypeScript + Carbon scaffold, routing, Carbon UI Shell.
-- Home, About and Contact routes.
+- Home, About and Contact routes, plus a catch-all 404 page.
+- Home states what Beehive is (hero copy and agent role tiles).
 - Vitest with an 80% coverage threshold; TypeScript strict mode.
 - README and AGENTS.md setup docs.
 
 ## Next: close the gaps
 
-| Item                                             | Tracking | Needs                                  |
-| ------------------------------------------------ | -------- | -------------------------------------- |
-| CI workflow gating lint, format, test and build  | #11, #16 | Human or merge-tier agent (workflows)  |
-| Catch-all 404 route                              | #23      | Contributor                            |
-| LICENSE and a stable default branch              | #25      | Maintainer decision                    |
-| Real content for Home (purpose, calls to action) | -        | Maintainer to state the site's purpose |
-| Close stale scaffold issue #4                    | #4       | Maintainer                             |
+| Item                                            | Tracking | Needs                                 |
+| ----------------------------------------------- | -------- | ------------------------------------- |
+| CI workflow gating lint, format, test and build | #11, #16 | Human or merge-tier agent (workflows) |
+| LICENSE and a stable default branch             | #25      | Maintainer decision                   |
+| Close stale scaffold issue #4                   | #4       | Maintainer                            |
 
 #11 and #16 describe the same missing workflow; keep one and close the other.
 
