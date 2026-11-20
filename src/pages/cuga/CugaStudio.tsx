@@ -10,7 +10,8 @@ import {
 } from '@carbon/react'
 import { Reset, Undo } from '@carbon/icons-react'
 import { useId, useState, type FormEvent } from 'react'
-import { postJson, useServiceStatus } from '../../lib/api'
+import { postJson } from '../../lib/http'
+import { useServiceStatus } from '../../lib/useServiceStatus'
 import {
   BASELINE_PAGE,
   PRIMARY_BUTTON_LABEL,

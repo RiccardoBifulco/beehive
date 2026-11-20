@@ -13,7 +13,8 @@ import {
   Tile,
 } from '@carbon/react'
 import { useEffect, useState } from 'react'
-import { getJson, useServiceStatus } from '../../lib/api'
+import { getJson } from '../../lib/http'
+import { useServiceStatus } from '../../lib/useServiceStatus'
 import {
   SAMPLE_LANES,
   SAMPLE_REPO,
