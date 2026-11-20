@@ -1,5 +1,6 @@
 import { Button, Column, Grid, Tag, Tile } from '@carbon/react'
 import { ArrowRight } from '@carbon/icons-react'
+import { Link } from 'react-router-dom'
 import { AGENTS } from '../data/agents'
 
 function Home() {
@@ -16,10 +17,10 @@ function Home() {
             code, maintaining CI, and shipping pull requests around the clock.
           </p>
           <div className="home-hero__actions">
-            <Button renderIcon={ArrowRight} href="/about">
+            <Button as={Link} renderIcon={ArrowRight} to="/about">
               Meet the agents
             </Button>
-            <Button kind="secondary" href="/contact">
+            <Button as={Link} kind="secondary" to="/contact">
               Get in touch
             </Button>
           </div>

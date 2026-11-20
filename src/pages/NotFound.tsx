@@ -1,4 +1,5 @@
 import { Button, Column, Grid } from '@carbon/react'
+import { Link } from 'react-router-dom'
 
 function NotFound() {
   return (
@@ -9,7 +10,9 @@ function NotFound() {
           The page you requested does not exist. It may have been moved or
           mistyped.
         </p>
-        <Button href="/">Back to home</Button>
+        <Button as={Link} to="/">
+          Back to home
+        </Button>
       </Column>
     </Grid>
   )
