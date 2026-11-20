@@ -81,4 +81,26 @@ describe('ErrorBoundary', () => {
     expect(screen.getByText('Home page')).toBeInTheDocument()
     expect(screen.queryByText('Something went wrong')).not.toBeInTheDocument()
   })
+
+  it('resets the boundary when navigating away through the header', async () => {
+    const user = userEvent.setup()
+
+    render(
+      <MemoryRouter initialEntries={['/broken']}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<div>Home page</div>} />
+            <Route path="about" element={<div>About page</div>} />
+            <Route path="broken" element={<BrokenComponent />} />
+          </Route>
+        </Routes>
+      </MemoryRouter>,
+    )
+
+    expect(screen.getByText('Something went wrong')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('link', { name: 'About' }))
+    expect(screen.getByText('About page')).toBeInTheDocument()
+    expect(screen.queryByText('Something went wrong')).not.toBeInTheDocument()
+  })
 })
