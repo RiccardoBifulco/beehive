@@ -177,12 +177,12 @@ function HiveFleet() {
             ))}
           </ProgressIndicator>
           <div aria-live="polite" className="studio__stage">
-            <p>
+            <div className="studio__stage-tags">
               <Tag type="blue">{stage.appliesTo}</Tag>{' '}
               <Tag type={stage.actor === 'human' ? 'red' : 'gray'}>
                 acts: {stage.actor}
               </Tag>
-            </p>
+            </div>
             <p>{stage.summary}</p>
             <p>
               <strong>Audit note (sample):</strong> {stage.audit}
@@ -216,14 +216,14 @@ function HiveFleet() {
           {SAMPLE_LANES.map((lane) => (
             <Tile key={lane.role}>
               <strong>{lane.role}</strong>
-              <p>
+              <div className="studio__lane-status">
                 <Tag
                   type={lane.status === 'working' ? 'green' : 'gray'}
                   size="sm"
                 >
                   {lane.status}
                 </Tag>
-              </p>
+              </div>
               <p>{lane.doing}</p>
             </Tile>
           ))}

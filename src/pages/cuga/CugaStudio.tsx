@@ -278,7 +278,7 @@ function CugaStudio() {
               </p>
             )}
             {chat.map((entry) => (
-              <p
+              <div
                 key={entry.id}
                 className={`studio__msg studio__msg--${entry.role}`}
               >
@@ -292,7 +292,7 @@ function CugaStudio() {
                   </Tag>
                 )}
                 <span>{entry.text}</span>
-              </p>
+              </div>
             ))}
             {busy && <InlineLoading description="CUGA is working" />}
           </div>
