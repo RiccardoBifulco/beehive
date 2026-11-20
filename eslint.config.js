@@ -21,4 +21,12 @@ export default tseslint.config(
       globals: globals.browser,
     },
   },
+  {
+    files: ['server/**/*.mjs'],
+    extends: [js.configs.recommended, prettier],
+    languageOptions: {
+      ecmaVersion: 2023,
+      globals: globals.node,
+    },
+  },
 )
