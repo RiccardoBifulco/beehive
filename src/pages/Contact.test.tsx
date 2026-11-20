@@ -77,4 +77,22 @@ describe('Contact', () => {
     expect(screen.queryByText('Name is required.')).not.toBeInTheDocument()
     expect(screen.getByText('Message is required.')).toBeInTheDocument()
   })
+
+  it('dismisses the success notification when close button is clicked', async () => {
+    render(<Contact />)
+    await userEvent.type(screen.getByLabelText(/full name/i), 'Jane Smith')
+    await userEvent.type(
+      screen.getByLabelText(/email address/i),
+      'jane@example.com',
+    )
+    await userEvent.type(screen.getByLabelText(/message/i), 'Hello there')
+    await userEvent.click(screen.getByRole('button', { name: /send message/i }))
+    expect(screen.getByText(/message sent/i)).toBeInTheDocument()
+
+    const closeButton = screen.getByRole('button', {
+      name: /close notification/i,
+    })
+    await userEvent.click(closeButton)
+    expect(screen.queryByText(/message sent/i)).not.toBeInTheDocument()
+  })
 })
