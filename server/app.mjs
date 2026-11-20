@@ -121,8 +121,8 @@ async function handleStatus(config, fetchImpl) {
     config.hiveBase ? probe(fetchImpl, `${config.hiveBase}/api/health`) : false,
   ])
   return {
-    cuga: { configured: Boolean(config.cugaBase), reachable: cuga },
-    hive: { configured: Boolean(config.hiveBase), reachable: hive },
+    cugaApi: { configured: Boolean(config.cugaBase), reachable: cuga },
+    hiveApi: { configured: Boolean(config.hiveBase), reachable: hive },
   }
 }
 

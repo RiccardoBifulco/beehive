@@ -75,8 +75,8 @@ describe('CugaStudio without a backend', () => {
 
 describe('CugaStudio with a live CUGA', () => {
   const status = {
-    cuga: { configured: true, reachable: true },
-    hive: { configured: false, reachable: false },
+    cugaApi: { configured: true, reachable: true },
+    hiveApi: { configured: false, reachable: false },
   }
 
   it('labels answers as live and says edits stay in the guided demo', async () => {

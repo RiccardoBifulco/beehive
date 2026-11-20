@@ -113,8 +113,8 @@ function HiveFleet() {
   const status = useServiceStatus()
   const live =
     status.phase === 'ready' &&
-    status.status.hive.configured &&
-    status.status.hive.reachable
+    status.status.hiveApi.configured &&
+    status.status.hiveApi.reachable
   const [step, setStep] = useState(0)
   const stage = SAMPLE_STAGES[step]
 
@@ -143,7 +143,7 @@ function HiveFleet() {
           subtitle={
             status.phase === 'unavailable'
               ? 'The site server is not running. Everything below is sample data.'
-              : status.status.hive.configured
+              : status.status.hiveApi.configured
                 ? 'The configured Hive dashboard did not answer. Everything below is sample data.'
                 : 'No Hive dashboard is configured. Everything below is sample data.'
           }

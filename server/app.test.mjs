@@ -44,8 +44,8 @@ describe('server', () => {
     const handler = createHandler({ env: {}, fetchImpl })
     const { status, body } = await call(handler, { url: '/api/status' })
     expect(status).toBe(200)
-    expect(body.cuga).toEqual({ configured: false, reachable: false })
-    expect(body.hive).toEqual({ configured: false, reachable: false })
+    expect(body.cugaApi).toEqual({ configured: false, reachable: false })
+    expect(body.hiveApi).toEqual({ configured: false, reachable: false })
     expect(fetchImpl).not.toHaveBeenCalled()
   })
 
@@ -60,8 +60,8 @@ describe('server', () => {
       fetchImpl,
     })
     const { body } = await call(handler, { url: '/api/status' })
-    expect(body.cuga.reachable).toBe(true)
-    expect(body.hive.reachable).toBe(false)
+    expect(body.cugaApi.reachable).toBe(true)
+    expect(body.hiveApi.reachable).toBe(false)
     expect(fetchImpl).toHaveBeenCalledWith(
       'http://cuga/health',
       expect.anything(),

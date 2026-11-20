@@ -87,8 +87,8 @@ function CugaStudio() {
   const status = useServiceStatus()
   const liveAvailable =
     status.phase === 'ready' &&
-    status.status.cuga.configured &&
-    status.status.cuga.reachable
+    status.status.cugaApi.configured &&
+    status.status.cugaApi.reachable
 
   const inputId = useId()
   const [mode, setMode] = useState<Mode>('guided')
@@ -238,7 +238,7 @@ function CugaStudio() {
           subtitle={
             status.phase === 'unavailable'
               ? 'The site server is not running, so only the guided demo is available. Every result below is simulated.'
-              : status.status.cuga.configured
+              : status.status.cugaApi.configured
                 ? 'The configured CUGA server did not answer. Every result below is simulated.'
                 : 'No CUGA server is configured. Every result below is simulated.'
           }

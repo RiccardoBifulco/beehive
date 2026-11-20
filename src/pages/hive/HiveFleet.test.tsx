@@ -58,8 +58,8 @@ describe('HiveFleet guided preview', () => {
 
 describe('HiveFleet with a live Hive', () => {
   const status = {
-    cuga: { configured: false, reachable: false },
-    hive: { configured: true, reachable: true },
+    cugaApi: { configured: false, reachable: false },
+    hiveApi: { configured: true, reachable: true },
   }
 
   it('shows runs returned by the backend', async () => {

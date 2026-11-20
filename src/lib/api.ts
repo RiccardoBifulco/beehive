@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 export interface ServiceStatus {
-  cuga: { configured: boolean; reachable: boolean }
-  hive: { configured: boolean; reachable: boolean }
+  cugaApi: { configured: boolean; reachable: boolean }
+  hiveApi: { configured: boolean; reachable: boolean }
 }
 
 export type StatusState =
